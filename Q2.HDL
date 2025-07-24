@@ -2,6 +2,31 @@ CHIP A6Q2<201843302> {
 IN a, b, c, d;
 OUT f;
 PARTS:
-#
+//part1
+Not(in=a, out=nota);
+Not(in=c, out=notc);
+And(a=nota, b=notc, out=notaandnotc);
+And(a=notaandnotc, b=d, out=term1);
+
+//part2
+Not(in=b, out=notb);
+Not(in=d, out=notd);
+And(a=a, b=notb, out=aandnotb);
+And(a=aandnotb, b=notc, out=aandnotbandnotc);
+And(a=aandnotbandnotc, b=notd, out=term2);
+
+//part3
+And(a=aandnotb, b=c, out=aandnotbandc);
+And(a=aandnotbandc, b=d, out=term3);
+
+//part4
+And(a=a, b=b, out=aandb);
+And(a=aandb, b=c, out=aamdbandc);
+And(a=aandbandc, b=notd, out=term4);
+
+//all
+Or(a=term1, b=term2, out=or12);
+Or(a=or12, b=term3, out=or123);
+Or(a=or123, b=term4, out=f);
 
 }
